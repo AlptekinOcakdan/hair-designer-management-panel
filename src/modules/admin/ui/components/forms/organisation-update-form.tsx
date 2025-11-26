@@ -22,7 +22,7 @@ type UpdateOrganisationFormProps = {
     organisation: Organisation;
 }
 
-export const UpdateOrganisationForm = ({organisation}: UpdateOrganisationFormProps) => {
+export const OrganisationUpdateForm = ({organisation}: UpdateOrganisationFormProps) => {
     const queryClient = useQueryClient();
     const form = useForm<UpdateOrganisationFormValues>({
         resolver: zodResolver(updateOrganisationSchema),

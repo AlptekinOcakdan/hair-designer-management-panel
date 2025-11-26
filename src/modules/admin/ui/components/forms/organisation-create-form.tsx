@@ -17,7 +17,7 @@ const createOrganisationSchema = z.object({
 
 type CreateOrganisationFormValues = z.infer<typeof createOrganisationSchema>;
 
-export const CreateOrganisationForm = () => {
+export const OrganisationCreateForm = () => {
     const queryClient = useQueryClient();
     const form = useForm<CreateOrganisationFormValues>({
         resolver: zodResolver(createOrganisationSchema),

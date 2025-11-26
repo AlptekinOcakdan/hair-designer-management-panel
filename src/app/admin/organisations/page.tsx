@@ -2,6 +2,7 @@ import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
 import {organisationQueries} from "@/modules/organisations/server/queries";
 import {OrganisationsView} from "@/modules/admin/ui/views/organisations-view";
 import {userQueries} from "@/modules/users/server/queries";
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
     const queryClient = new QueryClient();
