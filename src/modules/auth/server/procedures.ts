@@ -151,6 +151,9 @@ export async function verifyOtpAction(
 
     const { email, otpCode } = validatedFields.data;
 
+    // Yönlendirme yolu varsayılan olarak dashboard
+    let redirectPath = '/dashboard';
+
     try {
         // 2. API İsteği
         const res = await fetch(`${API_URL}/auth/verify-otp`, {
@@ -173,6 +176,30 @@ export async function verifyOtpAction(
         // 3. Token Yazma (Cookie)
         if (data.accessToken && data.user.refreshToken) {
             await createSession(data.accessToken, data.user.refreshToken);
+
+            // 4. Token içeriğinden rolleri okuyarak yönlendirme belirle
+            try {
+                // JWT'nin payload kısmını (2. kısım) decode et
+                const payloadBase64 = data.accessToken.split('.')[1];
+                if (payloadBase64) {
+                    const buffer = Buffer.from(payloadBase64, 'base64');
+                    const payload = JSON.parse(buffer.toString('utf-8'));
+                    const roles = payload.roles || [];
+
+                    // Rol önceliğine göre yönlendirme (Admin > Manager > Staff)
+                    if (roles.includes('SYS_ADMIN') || roles.includes('ADMIN')) {
+                        redirectPath = '/admin/organisations';
+                    } else if (roles.includes('OWNER') || roles.includes('MANAGER')) {
+                        redirectPath = '/manager/dashboard';
+                    } else if (roles.includes('STAFF')) {
+                        redirectPath = '/staff/appointments';
+                    }
+                }
+            } catch (decodeError) {
+                console.error("Token decoding failed during redirection logic:", decodeError);
+                // Hata durumunda varsayılan redirectPath (/dashboard) kullanılır
+            }
+
         } else {
             return {
                 success: false,
@@ -187,10 +214,8 @@ export async function verifyOtpAction(
         };
     }
 
-    // 4. Redirect (Try-Catch bloğunun DIŞINDA olmalı)
-    // Next.js redirect() fonksiyonu dahili olarak bir hata fırlatır ("NEXT_REDIRECT").
-    // Eğer try bloğu içinde yaparsan catch'e düşer ve yönlendirme çalışmaz.
-    redirect('/dashboard');
+    // 5. Redirect (Try-Catch bloğunun DIŞINDA olmalı)
+    redirect(redirectPath);
 }
 
 // ============================================================================

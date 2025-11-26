@@ -1,3 +1,4 @@
+import 'server-only';
 import { getAccessToken, getRefreshToken, createSession, deleteSession } from './session';
 import dotenv from 'dotenv';
 
