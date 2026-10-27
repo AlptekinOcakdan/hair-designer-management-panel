@@ -151,8 +151,8 @@ export async function verifyOtpAction(
 
     const { email, otpCode } = validatedFields.data;
 
-    // Yönlendirme yolu varsayılan olarak dashboard
-    let redirectPath = '/dashboard';
+    // Yönlendirme yolu varsayılan olarak login
+    let redirectPath = '/login'; // bilinmeyen rol: /dashboard sayfası yok
 
     try {
         // 2. API İsteği
@@ -197,7 +197,7 @@ export async function verifyOtpAction(
                 }
             } catch (decodeError) {
                 console.error("Token decoding failed during redirection logic:", decodeError);
-                // Hata durumunda varsayılan redirectPath (/dashboard) kullanılır
+                // Hata durumunda varsayılan redirectPath (/login) kullanılır
             }
 
         } else {
@@ -237,5 +237,5 @@ export async function logoutAction(): Promise<void> {
     }
 
     await deleteSession();
-    redirect('/auth/login');
+    redirect('/login');
 }
