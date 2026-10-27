@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { salonKeys, salonQueries } from "@/modules/salons/server/queries";
-import { DataTable } from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { deleteSalon, Salon } from "@/modules/salons/server/procedures";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -82,7 +82,7 @@ const SalonListContent = ({ organisationId, onSalonSelectAction }: SalonListCont
         }
     });
 
-    const columns: ColumnDef<Salon>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, Salon>[] = [
         {
             accessorKey: "name",
             header: "Salon Adı",

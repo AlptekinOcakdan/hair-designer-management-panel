@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { roleKeys, roleQueries } from "@/modules/roles/server/queries";
-import { DataTable } from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { deleteRole, Role } from "@/modules/roles/server/procedures";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -64,7 +64,7 @@ const RoleListSectionSuspense = ({ onRoleSelectAction }: RoleListSectionProps) =
         }
     });
 
-    const columns: ColumnDef<Role>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, Role>[] = [
         {
             accessorKey: "role",
             header: "Rol Adı",

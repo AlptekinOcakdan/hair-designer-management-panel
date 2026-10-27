@@ -4,7 +4,7 @@ import {Suspense, useState} from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {useMutation, useQueryClient, useSuspenseQuery} from "@tanstack/react-query";
 import {organisationKeys, organisationQueries} from "@/modules/organisations/server/queries";
-import {DataTable} from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import {ColumnDef} from "@tanstack/react-table";
 import {deleteOrganisation, Organisation} from "@/modules/organisations/server/procedures";
 import {Skeleton} from "@/components/ui/skeleton";
@@ -67,7 +67,7 @@ const OrganisationListSectionSuspense = () => {
         }
     });
 
-    const columns: ColumnDef<Organisation>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, Organisation>[] = [
         {
             accessorKey: "name",
             header: "Organizasyon Adı",

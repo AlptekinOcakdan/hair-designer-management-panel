@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { userKeys, userQueries } from "@/modules/users/server/queries";
-import { DataTable } from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { deleteMyProcedure, StaffProcedureDetail } from "@/modules/users/server/procedures";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -65,7 +65,7 @@ const ProcedureListSectionSuspense = ({ onProcedureSelectAction }: ProcedureList
         }
     });
 
-    const columns: ColumnDef<StaffProcedureDetail>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, StaffProcedureDetail>[] = [
         {
             accessorKey: "procedureName",
             header: "Prosedür Adı",

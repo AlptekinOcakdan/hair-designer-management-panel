@@ -4,7 +4,7 @@ import {Suspense, useState} from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {useMutation, useQueryClient, useSuspenseQuery} from "@tanstack/react-query";
 import {userKeys, userQueries} from "@/modules/users/server/queries";
-import {DataTable} from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import {ColumnDef} from "@tanstack/react-table";
 import {deleteUser, User} from "@/modules/users/server/procedures";
 import {Skeleton} from "@/components/ui/skeleton";
@@ -66,7 +66,7 @@ const UsersListSectionSuspense = ({ onUserSelectAction, onUserAssignAction, onUs
         }
     });
 
-    const columns: ColumnDef<User>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, User>[] = [
         {
             accessorKey: "firstname",
             header: "Ad",

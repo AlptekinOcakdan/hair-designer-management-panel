@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { permissionKeys, permissionQueries } from "@/modules/permissions/server/queries";
-import { DataTable } from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { deletePermission, Permission } from "@/modules/permissions/server/procedures";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -64,7 +64,7 @@ const PermissionListSectionSuspense = ({ onPermissionSelectAction }: PermissionL
         }
     });
 
-    const columns: ColumnDef<Permission>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, Permission>[] = [
         {
             accessorKey: "action",
             header: "Yetki",

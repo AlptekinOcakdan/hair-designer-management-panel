@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { userKeys, userQueries } from "@/modules/users/server/queries";
-import { DataTable } from "@/components/data-table";
+import { DataTable, dataTableFeatures } from "@/components/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { AppointmentResponse, completeAppointment } from "@/modules/users/server/procedures";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -56,7 +56,7 @@ const AppointmentListSectionSuspense = ({ onAppointmentSelectAction, onAppointme
         }
     });
 
-    const columns: ColumnDef<AppointmentResponse>[] = [
+    const columns: ColumnDef<typeof dataTableFeatures, AppointmentResponse>[] = [
         {
             accessorKey: "appointmentDate",
             header: "Tarih/Saat",

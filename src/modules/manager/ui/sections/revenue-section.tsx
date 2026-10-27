@@ -167,7 +167,7 @@ export const RevenueSection = () => {
                                     offset={12}
                                     className="fill-foreground font-bold"
                                     fontSize={12}
-                                    formatter={(value: number) => `₺${value}`}
+                                    formatter={(value) => `₺${value}`}
                                 />
                             </Bar>
                         </BarChart>
